@@ -9,6 +9,22 @@
           <a *ngFor="let genre of genres" [ngStyle]="genre==activateGenre? {'background-color':'lightgray'} : {'background-color':'white'}" class="list-group-item list-group-item-action" (click)="changeGenre(genre)">{{genre}}</a>
         </div>
         <h5 class="mt-3">Price</h5>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label class="col-form-label" for="inputDefault">Min</label>
+            <input type="number" class="form-control" [(ngModel)]="value" placeholder="Min" id="inputDefault">
+        </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label class="col-form-label" for="inputDefault">Max</label>
+            <input type="number" class="form-control" [(ngModel)]="highValue" placeholder="Min" id="inputDefault">
+        </div>
+        </div>
+      </div>  
+
+        <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ng5-slider>
         <hr>
       </div>
       

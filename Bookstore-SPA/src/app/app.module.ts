@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import {MatSliderModule} from '@angular/material/slider';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -19,7 +19,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { AboutUsComponent } from './about-us/about-us.component';
-import { MatOptionModule } from '@angular/material/core';
+import { Ng5SliderModule } from 'ng5-slider';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -47,10 +47,10 @@ import { MatListModule } from '@angular/material/list';
       RouterModule.forRoot(Routing),
       FormsModule,
       ReactiveFormsModule,
+      Ng5SliderModule,
+      MDBBootstrapModule.forRoot(),
       HttpClientModule,
       BrowserAnimationsModule,
-      MatSliderModule,
-      MatOptionModule,
       BsDropdownModule.forRoot(),
       LayoutModule,
       MatToolbarModule,

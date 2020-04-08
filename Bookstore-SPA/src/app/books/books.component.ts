@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { GenresService } from '../_services/genres.service';
+import { Options, LabelType } from 'ng5-slider';
 
 @Component({
   selector: 'app-books',
@@ -11,6 +12,12 @@ export class BooksComponent implements OnInit {
   filter: string;
   genres: string[];
   activateGenre: string;
+  value: number = 40;
+  highValue: number = 60;
+  options: Options = {
+    floor: 0,
+    ceil: 100
+  };
 
   constructor(private route: ActivatedRoute, private genresService: GenresService, private router: Router) { 
   }
