@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col">
+
+      <div class="input-group mt-4">
+        <input type="text" class="form-control form-control-sm" type="text" placeholder="Search...">
+        <button class="searchButton">
+          <i class="fa fa-search"></i>
+       </button>
+      </div>
+
+    
+  </div>
+  <div class="col-6">
+    <img class="img-responsive" src="../assets/Bookstore.PNG" [routerLink]="['/home']" class = "img-responsive mb-3" width = "100%">
+  </div>
+  <div class="col">
+    <i class="fa fa-star mt-4 mr-3 ml-3 icon" [routerLink]="['/favourites']" style="font-size:48px;"></i>
+    <i class="fa fa-user mt-4 mr-3 icon"  [routerLink]="['/profile']" style="font-size:48px;"></i>
+    <i class="fa fa-shopping-cart mt-4 icon" [routerLink]="['/shoppingcart']" style="font-size:48px;"></i>
+  </div>
+</div>
+  <nav id="nav" class="navbar-expand navbar-dark bg-primary rounded nav-fill">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <button id="button-animated" type="button" class="btn btn-primary">
+          <h4 class="nav-link btn-3" [routerLink]="['/home']">Home </h4>
+        </button>
+      </li>
+      <li class="nav-item">
+            <div class="btn-group" dropdown>
+              <button id="button-animated" dropdownToggle type="button" class="btn btn-primary">
+                      <h4 class="nav-link  btn-3" >Books</h4>
+              </button>
+              <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
+                  role="menu" aria-labelledby="button-animated">
+                  <li role="menuitem"><a class="dropdown-item" *ngFor="let item of items" [routerLink]="['/books', item]">{{item}}</a></li>
+              </ul>
+            </div>
+           
+      </li>
+      <li class="nav-item">
+        <button id="button-animated" type="button" class="btn btn-primary">
+          <h4 class="nav-link  btn-3" >Pricing</h4>
+      </button>
+      </li>
+      <li class="nav-item">
+        <button id="button-animated" type="button" class="btn btn-primary">
+          <h4 class="nav-link btn-3" [routerLink]="['/about']">About</h4>
+      </button>
+      </li>
+    </ul>
+  </nav>
