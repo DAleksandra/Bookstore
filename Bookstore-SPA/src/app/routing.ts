@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { BookDetailComponent } from './books/book-detail/book-detail.component';
 
 export const Routing: Routes = [
     {path: '', component: HomeComponent},
@@ -20,6 +21,7 @@ export const Routing: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'books/:filter', component: BooksComponent},
+    {path: 'book/:id', component: BookDetailComponent},
     {path: 'profile', component: ProfileComponent},
     {path: 'favourites', component: FavouritesComponent},
     {path: 'shoppingcart', component: ShoppingCartComponent},

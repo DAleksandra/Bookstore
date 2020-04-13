@@ -32,7 +32,7 @@
                       <h4 class="nav-link  btn-3" >Books</h4>
               </button>
               <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
-                  role="menu" aria-labelledby="button-animated">
+                  role="menu">
                   <li role="menuitem"><a class="dropdown-item" *ngFor="let item of items" [routerLink]="['/books', item]">{{item}}</a></li>
               </ul>
             </div>
@@ -40,7 +40,7 @@
       </li>
       <li class="nav-item">
         <button id="button-animated" type="button" class="btn btn-primary">
-          <h4 class="nav-link  btn-3" >Pricing</h4>
+          <h4 class="nav-link  btn-3" [routerLink]="['/']">??????</h4>
       </button>
       </li>
       <li class="nav-item">

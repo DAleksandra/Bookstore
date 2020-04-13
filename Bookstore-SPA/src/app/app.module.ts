@@ -25,7 +25,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatListModule } from '@angular/material/list';
+import { BookDetailComponent } from './books/book-detail/book-detail.component';
 
 
 @NgModule({
@@ -41,6 +43,7 @@ import { MatListModule } from '@angular/material/list';
       FavouritesComponent,
       ShoppingCartComponent,
       AboutUsComponent,
+      BookDetailComponent
    ],
    imports: [
       BrowserModule,
@@ -53,11 +56,8 @@ import { MatListModule } from '@angular/material/list';
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       LayoutModule,
-      MatToolbarModule,
-      MatButtonModule,
-      MatSidenavModule,
-      MatIconModule,
-      MatListModule
+      ModalModule.forRoot()
+      
    ],
    providers: [],
    bootstrap: [

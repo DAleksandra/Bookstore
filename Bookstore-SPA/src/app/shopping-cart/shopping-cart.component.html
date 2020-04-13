@@ -1,3 +1,64 @@
-<p>
-  shopping-cart works!
-</p>
+<header id="site-header">
+  <div class="container">
+      <h1>Shopping cart</h1>
+  </div>
+</header>
+
+<div class="container">
+
+  <section id="cart"> 
+    <div  *ngFor="let book of books">
+      <article class="product" *ngIf="book.inCart > 0">
+        <header>
+            <a class="remove">
+                <img src={{book.photoUrl}} alt="">
+
+                <h3>Remove product</h3>
+            </a>
+        </header>
+
+        <div class="content">
+
+            <h2>{{book.title}}</h2>
+            <h3>{{book.author}}</h3>
+           
+        </div>
+
+        <footer class="content">
+            <span class="qt-minus" (click)="minusQty(book)">-</span>
+            <span class="qt">{{book.inCart}}</span>
+            <span class="qt-plus" (click)="addQty(book)">+</span>
+
+            <h2 class="full-price">
+                {{book.price *book.inCart | number:'1.0-2'}} PLN
+            </h2>
+
+            <h2 class="price">
+                {{book.price}} PLN
+            </h2>
+        </footer>
+    </article>
+    </div>
+     
+
+     
+  </section>
+
+</div>
+
+<footer id="site-footer">
+  <div class="container clearfix">
+
+      <div class="left">
+          <h2 class="subtotal">Subtotal: {{subtotal | number:'1.0-2'}} PLN</h2>
+          <h3 class="tax">Taxes ({{taxes | number:'1.0-2'}}%): {{taxesMoney | number:'1.0-2'}} PLN</h3>
+          <h3 class="shipping">Shipping: {{shipping}}</h3>
+      </div>
+
+      <div class="right">
+          <h1 class="total">Total: {{total | number:'1.0-2'}} PLN</h1>
+          <button type="button" class="btn btn-primary btn-block">Go to summary</button>
+      </div>
+
+  </div>
+</footer>

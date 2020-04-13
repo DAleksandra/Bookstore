@@ -1,0 +1,63 @@
+<div class="row mt-5">
+  <div class="col mt-2 mb-2 ">
+    <div>
+      <img src={{book?.photoUrl}} alt="C" class="image img-responsive" (click)="openModal(template)">
+    </div>
+    <ng-template #template>
+      
+        <img src={{book?.photoUrl}} alt="C" class="image-modal">
+    </ng-template>
+  </div>
+  <div class="col">
+   <h2>{{book?.title}} <i class="fa fa-star  mr-3 ml-3 icon"
+    [ngClass]="{
+      'gold-star': book?.favourite,
+      'black-star': book?.favourite
+    }"
+    (click)="addToFavourite(book?.id)" id="star" style="font-size:28px;"></i></h2>
+   <h5 class="mb-2">{{book?.author}} </h5>
+   <div class="mt-5">
+    <p>Publisher: {{book?.publisher}}</p>
+    <p>Language: {{book?.language}}</p>
+    <p>Publishing date: {{book?.publishingDate | date:'shortDate'}}</p>
+   </div>
+   
+  </div>
+  <div class="col">
+    <div class="card border-light mb-3" style="max-width: 20rem;">
+      <div class="card-body">
+        <h1 class="card-title">{{book?.price | number:'1.0-2'}} PLN</h1>
+        <button type="button" class="btn btn-primary btn-block" (click)="openModal(cardTemplate)">Add to card</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="ml-3">
+    <h2>{{book?.title}} - description</h2>
+  </div>
+  
+</div>
+<div class="row mt-3">
+  <div class="ml-3">
+    <p>{{book?.description}}</p>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="ml-3">
+    <h2>Bestsellers</h2>
+  </div>
+  
+</div>
+
+<ng-template #cardTemplate>
+    <div class="card-body">
+      <h4 class="card-title">book? "{{book?.title}} added to shopping card!</h4>
+      <p class="card-text">Do you want to continue shopping, or go directly to shopping card?</p>
+      <div class="row">
+        <button type="button" class="btn btn-primary mr-3 ml-5" (click)="modalRef.hide()" (click)="return()">Continue shopping</button>
+        <button type="button" class="btn btn-success" (click)="goShoppingCard()" (click)="modalRef.hide()">Go to shopping card</button>
+      </div>
+     
+    </div>
+</ng-template>

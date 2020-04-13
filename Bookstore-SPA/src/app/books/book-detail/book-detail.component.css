@@ -1,0 +1,19 @@
+.image:hover {
+    cursor: pointer;
+    max-width: 100%;
+}
+
+.image {
+    max-width: 100%;
+}
+
+.gold-star {
+    color: gold;
+}
+
+.icon:hover {
+    color: gold;
+    transform: scale(1.2);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}

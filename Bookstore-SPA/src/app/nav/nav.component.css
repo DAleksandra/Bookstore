@@ -31,3 +31,11 @@
   .dropdown-item {
     cursor: pointer;
   }
+
+  .img-responsive:hover {
+    cursor: pointer;
+    transform: scale(1.1); 
+  transition: all 250ms linear;
+  }
+
+ 
