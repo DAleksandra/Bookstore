@@ -26,7 +26,8 @@
   <div class="col">
     <div class="card border-light mb-3" style="max-width: 20rem;">
       <div class="card-body">
-        <h1 class="card-title">{{book?.price | number:'1.0-2'}} PLN</h1>
+        <h1 class="card-title" *ngIf="book.onSale === false">{{book?.price | number:'1.0-2'}} PLN</h1>
+        <h1 class="card-title" *ngIf="book.onSale ==! false"><s>{{book?.price | number:'1.0-2'}}</s> {{book?.salePrice | number:'1.0-2'}} PLN</h1>
         <button type="button" class="btn btn-primary btn-block" (click)="openModal(cardTemplate)">Add to card</button>
       </div>
     </div>

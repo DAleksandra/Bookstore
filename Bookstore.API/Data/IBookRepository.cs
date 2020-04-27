@@ -12,6 +12,9 @@ namespace Bookstore.API.Data
          Task<bool> SaveAll();
          Task<Book> GetBook(int id);
          Task<ICollection<Book>> GetBooks(Filters filters);
+         Task<User> GetUser(int userId);
+         Task<ICollection<Address>> GetAddresses(int userId);
+   
 
     }
 }

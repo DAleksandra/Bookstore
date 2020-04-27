@@ -1,0 +1,196 @@
+<div class="row ml-3 mt-3">
+  <div class="col">
+    <div class="row">
+      <div class="col-1">
+        <span class="dot-orange"></span>
+        <h4>Payment</h4>
+      </div>
+      <div class="col-11">
+        <progressbar [value]="value1" class="ml-2 mt-1" type="warning"></progressbar>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="row">
+      <div class="col-1">
+        <span class="dot" *ngIf="step == 1"></span>
+        <span class="dot-orange" *ngIf="step > 1"></span>
+        <h4>Address</h4>
+      </div>
+      <div class="col-11">
+        <progressbar [value]="value2" class="ml-2 mt-1" type="warning"></progressbar>
+      </div>
+    </div>
+  </div>
+  <div class="col-1">
+        <span class="dot" *ngIf="step < 3"></span>
+        <span class="dot-orange" *ngIf="step == 3"></span>
+        <h4>Summary</h4>
+  </div>  
+</div>
+<div class="container">
+  <form #editForm="ngForm" id="editForm" (ngSubmit)="finalize()">
+    <div *ngIf="step == 1">
+      <div class="payment-method ml-5 mt-3">
+        <label for="card" class="method card mr-5" [ngClass]="{'card-pay': card==true}" (click)="chooseCard()">
+          <div class="card-logos">
+            <img src="../assets/visa_logo.png"/>
+            <img src="../assets/mastercard_logo.png"/>
+          </div>
+          <input class="form-check-input" type="checkbox">
+        </label>
+        
+        <label for="card" class="method paypal" [ngClass]="{'paypal': paypal==true}" (click)="choosePaypal()">
+            <img class="image" src="../assets/paypal_logo.png"/>
+            <input class="form-check-input" type="checkbox" >
+        </label>
+      </div>
+      <div *ngIf="card === true">
+        <div class="row">
+          <div class="col">
+            <label for="card-owner" class="control-label">Card owner</label>
+            <input type="text" id="card-owner" class="form-control"  name="card-owner" [(ngModel)]="cardOwner"/>
+          </div>
+          <div class="col">
+            <label for="card-number" class="control-label">Card number</label>
+            <input type="text" id="card-number" class="form-control"  name="card-number" [(ngModel)]="cardNumber"/>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <div class="row">
+              <div class="col">
+                <label for="valid-date" class="control-label">Valid to</label>
+                <input type="text" id="valid-date" class="form-control"  name="valid-date" [(ngModel)]="validDate"/>
+              </div>
+              <div class="col">
+                <label for="cvv-number" class="control-label">CVV / CVC *</label>
+                <input type="text" id="cvv-number" class="form-control"  name="cvv-number" [(ngModel)]="cvvNumber"/>
+              </div>
+            </div>
+            
+          </div>
+          <div class="col">
+            <p>* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="paypal === true" class="ml-10">
+        <h4>You will be redirect to paypal site after submit.</h4>
+      </div>
+      
+    </div>
+    
+    <div *ngIf="step == 2" class="mt-3">
+      <h4>Choose one of your saved addresses or fill the adress form.</h4>
+      
+      <label for="card" class="method card mr-5" *ngFor="let addr of addresses; let i = index" [ngClass]="{'paypal': addr===address}" (click)="chooseAddress(i)">
+          <p><b>First name: </b>{{addr.firstName}}</p>
+          <p><b>Last name: </b>{{addr.lastName}}</p>
+          <p><b>Address: </b>{{addr.street}} {{addr.homeNumber}}</p>
+          <p><b>Post: </b>{{addr.postNumber}} {{addr.city}}</p>
+      </label>
+      
+      
+
+      <div class="row mt-3">
+        <div class="col">
+          <label for="first-name" class="control-label">First Name</label>
+          <input type="text" id="first-name" class="form-control"  name="firstName" [(ngModel)]="address.firstName"/>
+        </div>
+        <div class="col">
+          <label for="last-name" class="control-label">Last Name</label>
+          <input type="text" id="last-name" class="form-control"  name="lastName" [(ngModel)]="address.lastName"/>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-8">
+          <label for="street" class="control-label">Street</label>
+          <input type="text" id="street" class="form-control"  name="street" [(ngModel)]="address.street"/>
+
+        </div>
+        <div class="col-4">
+          <label for="home-number" class="control-label">Home/Apartment Number</label>
+          <input type="text" id="home-number" class="form-control"  name="home-number" [(ngModel)]="address.homeNumber"/>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+          <div class="row">
+            <div class="col">
+              <label for="post-number" class="control-label">Post Number</label>
+              <input type="text" id="post-number" class="form-control"  name="post-number" [(ngModel)]="address.postNumber"/>
+            </div>
+            <div class="col">
+              <label for="city" class="control-label">City</label>
+              <input type="text" id="city" class="form-control"  name="city" [(ngModel)]="address.city"/>
+            </div>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+    <div *ngIf="step == 3">
+      <div class="row mt-5">
+        <div class="col">
+
+        </div>
+        <div class="col">
+          <h4>Payment method:</h4>
+        <p *ngIf="card==true">Card</p>
+        <p *ngIf="paypal==true">Paypal</p>
+        <p></p>
+        <h4>Address: </h4>
+        <p><b>First name: </b>{{address.firstName}}</p>
+        <p><b>Last name: </b>{{address.lastName}}</p>
+        <p><b>Address: </b>{{address.street}} {{address.homeNumber}}</p>
+        <p><b>Post: </b>{{address.postNumber}} {{address.city}}</p>
+        </div>
+        <div class="col">
+
+        </div>
+      </div>
+        
+    </div>
+    
+    <div class="mb-5 mt-3">
+      <div class="row">
+        <div class="col">
+    
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-primary" *ngIf="step != 1" (click)="previous()">Previous</button>
+        </div>
+        <div class="col">
+          <div class="row">
+            <button type="button" class="btn btn-primary" *ngIf="step != 3" (click)="next()">Next</button>
+            <button type="submit" class="btn btn-primary" *ngIf="step == 3">Submit</button>
+          </div>
+          
+        </div>
+        <div class="col">
+      
+        </div>
+      </div>
+      
+    </div>
+
+   
+    
+  </form>
+</div>
+
+
+
+
+
+

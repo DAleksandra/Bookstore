@@ -8,6 +8,7 @@ import { FavouritesComponent } from './favourites/favourites.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
+import { OrderFinalizeComponent } from './shopping-cart/order-finalize/order-finalize.component';
 
 export const Routing: Routes = [
     {path: '', component: HomeComponent},
@@ -19,6 +20,7 @@ export const Routing: Routes = [
         ]
     },
     {path: 'login', component: LoginComponent},
+    {path: 'finalize', component: OrderFinalizeComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'books/:filter', component: BooksComponent},
     {path: 'book/:id', component: BookDetailComponent},

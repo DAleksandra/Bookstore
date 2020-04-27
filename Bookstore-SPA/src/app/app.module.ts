@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
@@ -28,6 +30,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatListModule } from '@angular/material/list';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
+import { AuthService } from './_services/auth.service';
+import { OrderFinalizeComponent } from './shopping-cart/order-finalize/order-finalize.component';
+
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
 
 
 @NgModule({
@@ -43,7 +51,8 @@ import { BookDetailComponent } from './books/book-detail/book-detail.component';
       FavouritesComponent,
       ShoppingCartComponent,
       AboutUsComponent,
-      BookDetailComponent
+      BookDetailComponent,
+      OrderFinalizeComponent
    ],
    imports: [
       BrowserModule,
@@ -56,10 +65,18 @@ import { BookDetailComponent } from './books/book-detail/book-detail.component';
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       LayoutModule,
-      ModalModule.forRoot()
+      ProgressbarModule.forRoot(),
+      ModalModule.forRoot(),
+      JwtModule.forRoot({
+         config: {
+            tokenGetter: tokenGetter,
+            whitelistedDomains: ['localhost:5000'],
+            blacklistedRoutes: ['localhost:5000/api/auth']
+         }
+      })
       
    ],
-   providers: [],
+   providers: [AuthService],
    bootstrap: [
       AppComponent
    ]

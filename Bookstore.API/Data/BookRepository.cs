@@ -113,5 +113,22 @@ namespace Bookstore.API.Data
         {
             _context.Remove(entity);
         }
+
+        public async Task<User> GetUser(int userId)
+        {
+            var user = await _context.Users.Include(o => o.Orders)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+
+            return user;
+        }
+
+        public async Task<ICollection<Address>> GetAddresses(int userId)
+        {
+           var addresses = await _context.Addresses.Where(a => a.UserId == userId).ToListAsync();
+
+           return addresses;
+
+
+        }
     }
 }

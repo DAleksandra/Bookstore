@@ -1,0 +1,70 @@
+.dot {
+    height: 25px;
+    width: 25px;
+
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .dot-orange {
+    height: 25px;
+    width: 25px;
+
+    background-color: orange;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+.form-check-input {
+  visibility: hidden;
+}
+
+.card-body {
+  width: 10px;
+}
+
+img {
+  width: 50px;
+}
+
+
+
+.card-logos {
+  display: flex;
+  width: 180px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payment-method {
+  display: flex;
+  margin-bottom: 60px;
+
+}
+
+.method {
+  display: flex;
+  flex-direction: column;
+  width: 382px;
+  height: 140px;
+  padding-top: 20px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background-color: rgb(249, 249, 249);
+  justify-content: center;
+  align-items: center;
+}
+
+.card-pay {
+  border: 1px solid orange;
+}
+
+.paypal {
+  border: 1px solid orange;
+}
+
+
+
+  

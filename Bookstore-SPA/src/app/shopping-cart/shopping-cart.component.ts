@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { Book } from '../_models/book';
+import { OrderBook } from '../_models/order-book';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -8,6 +10,7 @@ import { Book } from '../_models/book';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
+  orderBooks: OrderBook[];
   books: Book[];
   total: number = 0;
   subtotal: number = 0;
@@ -16,36 +19,60 @@ export class ShoppingCartComponent implements OnInit {
   shipping: number;
   
 
-  constructor(private shoppingCartService: ShoppingCartService) { }
+  constructor(private shoppingCartService: ShoppingCartService, private router: Router) { }
 
   ngOnInit() {
     this.shipping = this.shoppingCartService.shipping;
     this.taxes = this.shoppingCartService.taxes;
-    this.books = this.shoppingCartService.books;
+    this.orderBooks = this.shoppingCartService.orderBooks;
 
     this.recalculate();
   }
 
-  addQty(book: Book) {
-    this.books.find(x => x.id === book.id).inCart++;
+  addQty(orderBook: OrderBook) {
+    this.orderBooks.find(x => x.book.id === orderBook.book.id).quantity++;
+    //this.books.find(x => x.id === book.id).inCart++;
     this.recalculate();
   }
 
-  minusQty(book: Book) {
-    if (this.books.find(x => x.id === book.id).inCart === 1) {
-      this.books.slice(this.books.lastIndexOf(book), this.books.lastIndexOf(book));
-    }
-    this.books.find(x => x.id === book.id).inCart--;
+  minusQty(orderBook: OrderBook) {
+    console.log(this.orderBooks);
+    if (this.orderBooks.find(x => x.book.id === orderBook.book.id).quantity === 1) {
+      this.orderBooks.splice(this.orderBooks.lastIndexOf(orderBook), this.orderBooks.lastIndexOf(orderBook)+1);
+      }
+    
     this.recalculate();
   }
 
   recalculate() {
     this.subtotal = 0;
-    for (let el of this.books) {
-      this.subtotal = this.subtotal + el.price * el.inCart;
+    for (let el of this.orderBooks) {
+      this.subtotal = this.subtotal + el.book.price * el.quantity;
     }
     this.total = this.subtotal + this.subtotal * this.taxes/100 + this.shipping;
     this.taxesMoney = this.subtotal * this.taxes/100;
+
+    this.shoppingCartService.orderBooks = this.orderBooks;
+    this.shoppingCartService.total = this.total;
+  }
+
+  remove(orderBook: OrderBook) {
+    this.orderBooks.find(x => x.book.id === orderBook.book.id).quantity = 1; 
+    if (this.orderBooks.find(x => x.book.id === orderBook.book.id).quantity === 1) {
+      this.orderBooks.splice(this.orderBooks.lastIndexOf(orderBook), this.orderBooks.lastIndexOf(orderBook)+1);
+    }
+
+      this.recalculate();
+  }
+
+  order() {
+    this.router.navigate(['finalize']);
+   // this.shoppingCartService.addOrder().subscribe(x => {
+    //  console.log('ok');
+    //}, error => {
+    //  console.log(error);
+    //}
+     // );
   }
 
 }

@@ -22,6 +22,7 @@ export class BookDetailComponent implements OnInit {
     const id: number = +this.route.snapshot.paramMap.get('id')
     this.booksService.getBook(id).subscribe(x => {
       this.book = x;
+      console.log(this.book);
       this.book.inCart = 0;
     }, error => {
       console.log(error);
@@ -34,20 +35,19 @@ export class BookDetailComponent implements OnInit {
   }
 
   return() {
-    if(this.shoppingCartService.books.find(x => x.id === this.book.id)) {
-      this.shoppingCartService.books[this.shoppingCartService.books.lastIndexOf(this.book)].inCart++;
+    if(this.shoppingCartService.orderBooks.find(x => x.book.id === this.book.id)) {
+      this.shoppingCartService.orderBooks.find(x => x.book.id === this.book.id).quantity++;
     } else {
-      this.book.inCart = +this.book.inCart + 1;
-      this.shoppingCartService.books.push(this.book);
+      this.shoppingCartService.orderBooks.push({book: this.book, quantity: 1 });
     }
+    
   }
 
   goShoppingCard() {
-    if(this.shoppingCartService.books.find(x => x.id === this.book.id)) {
-      this.shoppingCartService.books[this.shoppingCartService.books.lastIndexOf(this.book)].inCart++;
+    if(this.shoppingCartService.orderBooks.find(x => x.book.id === this.book.id)) {
+      this.shoppingCartService.orderBooks.find(x => x.book.id === this.book.id).quantity++;
     } else {
-      this.book.inCart = +this.book.inCart + 1;
-      this.shoppingCartService.books.push(this.book);
+      this.shoppingCartService.orderBooks.push({book: this.book, quantity: 1 });
     }
     
     this.router.navigate(['shoppingcart']);
