@@ -116,7 +116,7 @@ namespace Bookstore.API.Data
 
         public async Task<User> GetUser(int userId)
         {
-            var user = await _context.Users.Include(o => o.Orders)
+            var user = await _context.Users.Include(o => o.Orders).Include(a => a.Addresses)
             .FirstOrDefaultAsync(u => u.Id == userId);
 
             return user;
@@ -127,6 +127,34 @@ namespace Bookstore.API.Data
            var addresses = await _context.Addresses.Where(a => a.UserId == userId).ToListAsync();
 
            return addresses;
+
+
+        }
+        public async Task<Address> GetAddress(int userId, int id)
+        {
+            var address = await _context.Addresses.Where(a => a.UserId == userId && a.Id == id).FirstOrDefaultAsync();
+
+            return address;
+        }
+
+        public async Task<ICollection<Order>> GetOrders(int userId)
+        {
+           var orders = await _context.Orders.Include(x => x.Books).Where(a => a.UserId == userId).ToListAsync();
+
+           return orders;
+        }
+        public async Task<Order> GetOrder(int userId, int id)
+        {
+            var order = await _context.Orders.Where(a => a.UserId == userId && a.Id == id).FirstOrDefaultAsync();
+
+            return order;
+        }
+
+        public async Task<ICollection<OrderBook>> GetOrderBooks(int orderId)
+        {
+           var orderBooks = await _context.OrderedBooks.Where(a => a.OrderId == orderId).ToListAsync();
+
+           return orderBooks;
 
 
         }

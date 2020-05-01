@@ -46,6 +46,51 @@ namespace Bookstore.API.Controllers
             return BadRequest("Could not add the order.");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GerOrders(int userId)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var ordersFromRepo = await _repo.GetOrders(userId);
+
+            var orders = _mapper.Map<IEnumerable<OrderToReturnDto>>(ordersFromRepo);
+
+            return Ok(orders);
+        }
+
+        [HttpGet("books")]
+        public async Task<IActionResult> GerOrderBooks(int userId)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var orderBooksFromRepo = await _repo.GetOrderBooks(userId);
+
+            var orders = _mapper.Map<IEnumerable<OrderToReturnDto>>(orderBooksFromRepo);
+
+            return Ok(orders);
+        }
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOrder(int userId, int id)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var currentUser = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var orderFromRepo = await _repo.GetOrder(userId, id);
+
+            if(currentUser != orderFromRepo.UserId)
+                return Unauthorized();
+
+            var order = _mapper.Map<IEnumerable<OrderToReturnDto>>(orderFromRepo);
+
+            return Ok(order);
+        }
+
         [HttpGet("address")]
         public async Task<IActionResult> GetAddresses(int userId)
         {
@@ -57,6 +102,86 @@ namespace Bookstore.API.Controllers
             var addresses = _mapper.Map<IEnumerable<AddressToReturnDto>>(addressesFromRepo);
 
             return Ok(addresses);
+        }
+
+        [HttpGet("address/{id}", Name = "GetAddress")]
+        public async Task<IActionResult> GetAddress(int userId, int id)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var currentUser = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var addressFromRepo = await _repo.GetAddress(userId, id);
+
+            if(currentUser != addressFromRepo.UserId)
+                return Unauthorized();
+
+            var address = _mapper.Map<IEnumerable<AddressToReturnDto>>(addressFromRepo);
+
+            return Ok(address);
+        }
+
+
+
+        [HttpPost("address")]
+        public async Task<IActionResult> AddAddress(int userId, AddressToCreationDto addressToCreation)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var userFromRepo = await _repo.GetUser(userId);
+
+            var address = _mapper.Map<Address>(addressToCreation);
+
+            userFromRepo.Addresses.Add(address);
+
+            if(await _repo.SaveAll())
+            {
+                var addressToReturn = _mapper.Map<AddressToReturnDto>(address);
+                return CreatedAtRoute("GetAddress", new {userId = userId, id = address.Id}, addressToReturn);
+            }
+
+            return BadRequest("Could not add the adress.");
+        }
+
+        [HttpPut("address/{id}")]
+        public async Task<IActionResult> UpdateAddress(int id, int userId, AddressToReturnDto addressForUpdateDto)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var addressFromRepo = await _repo.GetAddress(userId, id);
+
+            _mapper.Map(addressForUpdateDto, addressFromRepo);
+
+            if(await _repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            return BadRequest("Could not update income.");
+        }        
+
+        [HttpDelete("address/{id}")]
+        public async Task<IActionResult> DeleteAddress(int id, int userId)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var user = await _repo.GetUser(userId);
+
+            if(!user.Addresses.Any(p => p.Id == id))
+                return Unauthorized();
+
+            var addressesFromRepo = await _repo.GetAddress(userId, id);
+
+            _repo.Delete(addressesFromRepo);
+
+            if(await _repo.SaveAll())
+                return Ok();
+
+            return BadRequest("Failed to delete address.");
         }
 
     

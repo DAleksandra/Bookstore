@@ -14,6 +14,10 @@ namespace Bookstore.API.Data
          Task<ICollection<Book>> GetBooks(Filters filters);
          Task<User> GetUser(int userId);
          Task<ICollection<Address>> GetAddresses(int userId);
+        Task<Address> GetAddress(int userId, int id);
+        Task<ICollection<Order>> GetOrders(int userId);
+        Task<Order> GetOrder(int userId, int id);
+        Task<ICollection<OrderBook>> GetOrderBooks(int orderId);
    
 
     }

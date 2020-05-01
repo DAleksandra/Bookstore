@@ -38,7 +38,7 @@ export class BookDetailComponent implements OnInit {
     if(this.shoppingCartService.orderBooks.find(x => x.book.id === this.book.id)) {
       this.shoppingCartService.orderBooks.find(x => x.book.id === this.book.id).quantity++;
     } else {
-      this.shoppingCartService.orderBooks.push({book: this.book, quantity: 1 });
+      this.shoppingCartService.orderBooks.push({book: this.book, bookId: this.book.id, quantity: 1 });
     }
     
   }
@@ -47,7 +47,7 @@ export class BookDetailComponent implements OnInit {
     if(this.shoppingCartService.orderBooks.find(x => x.book.id === this.book.id)) {
       this.shoppingCartService.orderBooks.find(x => x.book.id === this.book.id).quantity++;
     } else {
-      this.shoppingCartService.orderBooks.push({book: this.book, quantity: 1 });
+      this.shoppingCartService.orderBooks.push({book: this.book, bookId: this.book.id, quantity: 1 });
     }
     
     this.router.navigate(['shoppingcart']);

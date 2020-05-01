@@ -6,7 +6,8 @@ namespace Bookstore.API.DTOs
     public class OrderedBookDto
     {
         public int Quantity { get; set; }
-        public Book Book { get; set; }
+        public int BookId { get; set; }
+        public BookToReturnDto Book { get; set; }
 
     }
 }

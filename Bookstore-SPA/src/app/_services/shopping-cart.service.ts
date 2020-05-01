@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Address } from '../_models/address';
 import { map } from 'rxjs/operators';
+import { Order } from '../_models/order';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +23,9 @@ constructor(private http: HttpClient, private authService: AuthService) {
  }
 
   addOrder() {
-    console.log({Books: this.orderBooks, Status: 'placed', TotalPrice: this.total, ChoosedAddress: this.address, PaymentMethod: this.paymant});
     return this.http.post(this.baseUrl + this.authService.decodedToken.nameid + '/orders',
     {Books: this.orderBooks, Status: 'placed', TotalPrice: this.total, FirstName: this.address.firstName, LastName: this.address.lastName, 
-    Street: this.address.street, HomeNumber: this.address.homeNumber, PostNumber: this.address.postNumber, 
+    Street: this.address.street, HomeNumber: this.address.homeNumber, PostNumber: this.address.postNumber,
     City: this.address.city, PaymentMethod: this.paymant});
     
   }
@@ -36,6 +36,29 @@ constructor(private http: HttpClient, private authService: AuthService) {
         return response;
       })
     );
+  }
+
+  getOrders() {
+    return this.http.get<Order[]>(this.baseUrl + this.authService.decodedToken.nameid + '/orders').pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+
+
+  updateAddress(address: Address)
+  {
+    return this.http.put(this.baseUrl + this.authService.decodedToken.nameid + '/orders/address/' + address.id, address);
+  }
+
+  addAddress(address: Address)
+  {
+    return this.http.post(this.baseUrl + this.authService.decodedToken.nameid + '/orders/address', address);
+  }
+
+  deleteAddress(id: number) {
+    return this.http.delete(this.baseUrl + this.authService.decodedToken.nameid + '/orders/address/' + id);
   }
 
 }
