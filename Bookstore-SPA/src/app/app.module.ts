@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MDBBootstrapModule, TooltipModule } from 'angular-bootstrap-md';
 
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -67,6 +67,7 @@ export function tokenGetter() {
       LayoutModule,
       ProgressbarModule.forRoot(),
       ModalModule.forRoot(),
+      TooltipModule.forRoot(),
       JwtModule.forRoot({
          config: {
             tokenGetter: tokenGetter,

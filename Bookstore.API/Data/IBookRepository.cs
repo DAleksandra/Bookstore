@@ -18,6 +18,7 @@ namespace Bookstore.API.Data
         Task<ICollection<Order>> GetOrders(int userId);
         Task<Order> GetOrder(int userId, int id);
         Task<ICollection<OrderBook>> GetOrderBooks(int orderId);
+        Task<Boolean> DecreaseStock(int id, int quantity);
    
 
     }

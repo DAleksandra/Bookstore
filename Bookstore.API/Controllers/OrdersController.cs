@@ -34,7 +34,14 @@ namespace Bookstore.API.Controllers
 
             var userFromRepo = await _repo.GetUser(userId);
 
+            foreach(var book in orderToCreation.Books)
+            {
+                book.Book.Stock = book.Book.Stock - book.Quantity;
+            }
+
+
             var order = _mapper.Map<Order>(orderToCreation);
+
             
             userFromRepo.Orders.Add(order);
 

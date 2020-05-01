@@ -158,5 +158,15 @@ namespace Bookstore.API.Data
 
 
         }
+
+        public async Task<Boolean> DecreaseStock(int id, int quantity)
+        {
+            var book = await _context.Books.Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            book.Stock = book.Stock - quantity;
+
+            return await SaveAll();
+            
+        }
     }
 }

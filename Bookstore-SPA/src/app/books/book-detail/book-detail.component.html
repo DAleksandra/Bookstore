@@ -20,6 +20,7 @@
     <p>Publisher: {{book?.publisher}}</p>
     <p>Language: {{book?.language}}</p>
     <p>Publishing date: {{book?.publishingDate | date:'shortDate'}}</p>
+    <p>Stock: {{book?.stock}}</p>
    </div>
    
   </div>
@@ -28,7 +29,10 @@
       <div class="card-body">
         <h1 class="card-title" *ngIf="book.onSale === false">{{book?.price | number:'1.0-2'}} PLN</h1>
         <h1 class="card-title" *ngIf="book.onSale ==! false"><s>{{book?.price | number:'1.0-2'}}</s> {{book?.salePrice | number:'1.0-2'}} PLN</h1>
-        <button type="button" class="btn btn-primary btn-block" (click)="openModal(cardTemplate)">Add to card</button>
+        <button type="button" class="btn btn-primary btn-block" (click)="openModal(cardTemplate)" [disabled]="book.stock == 0">Add to card</button>
+        <div class="alert alert-dismissible alert-danger mt-3" *ngIf="book.stock == 0">
+          <strong>Oh no!</strong> It seems this book is not available now.
+        </div>
       </div>
     </div>
   </div>
