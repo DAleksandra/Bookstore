@@ -35,4 +35,8 @@ getBook(id: number) {
   return this.http.get<Book>(this.baseUrl + '/' + id);
 }
 
+getBestsellers() {
+  return this.http.get<Book[]>(this.baseUrl + '/bestsellers');
+}
+
 }

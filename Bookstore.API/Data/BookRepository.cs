@@ -168,5 +168,12 @@ namespace Bookstore.API.Data
             return await SaveAll();
             
         }
+
+        public async Task<ICollection<Book>> GetBestsellers()
+        {
+            var books = await _context.Books.OrderByDescending(x => x.Saled).Take(4).ToListAsync();
+
+            return books;
+        }
     }
 }

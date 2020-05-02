@@ -11,6 +11,7 @@ namespace Bookstore.API.DTOs
         public string PhotoUrl { get; set; }
         public int Stock { get; set; }
         public bool OnSale { get; set; }
+        public int Saled { get; set; }
         public float SalePrice { get; set; }
         public float Price { get; set; }
         public string Language { get; set; }

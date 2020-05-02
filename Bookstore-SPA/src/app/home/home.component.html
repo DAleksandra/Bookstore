@@ -1,3 +1,65 @@
-<p>
-  home works!
-</p>
+
+  <div class="row mt-3"></div>
+  <carousel>
+    <slide>
+      <img src="../assets/big1.png" alt="first slide" style="display: block; width: 100%;">
+      <div class="carousel-caption d-none d-md-block">
+      </div>
+    </slide>
+    <slide>
+      <img src="../assets/big2.png" alt="second slide" style="display: block; width: 100%;">
+      <div class="carousel-caption d-none d-md-block">
+      </div>
+    </slide>
+    <slide>
+      <img src="../assets/big3.png" alt="third slide" style="display: block; width: 100%;">
+      <div class="carousel-caption d-none d-md-block">
+      </div>
+    </slide>
+  </carousel>
+
+  <div class="row mt-3">
+    <div class="col">
+      <img class="banner" [routerLink]="['/books/Fantasy']" routerLinkActive="router-link-active"  src="../assets/pic1.png" alt="third slide" style="display: block; width: 100%;">
+    </div>
+    <div class="col">
+      <img class="banner" [routerLink]="['/books/Horror']" src="../assets/pic2.png" alt="third slide" style="display: block; width: 100%;">
+    </div>
+    <div class="col">
+      <img  class="banner" [routerLink]="['/books/All']" src="../assets/pic3.png" alt="third slide" style="display: block; width: 100%;">
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col"></div>
+    <div class="col">
+      <h1>Bestsellers</h1>
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="container best mb-5">
+    <div class="row">
+      <div class="card bg-secondary mb-3 card-hover ml-4 mt-3"  *ngFor="let book of books">
+        <div class="row">
+          <div class="col-10">
+            <h5 class="card-title mt-2 ml-5 mb-1">{{book.title}} </h5>
+          </div>
+          <div class="col-2">
+          </div>
+        </div>
+        
+        
+        <div (click)="goToDetail(book.id)">
+          
+          <h6 class="card-title mb-1 ml-5">{{book.author}}</h6>
+          <div class="card-body">
+          <img src={{book.photoUrl}} alt="C" class="image">
+        </div>
+        </div>
+        
+      </div>
+    </div>
+     
+   
+  </div>
+  

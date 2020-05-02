@@ -39,5 +39,13 @@ namespace Bookstore.API.Controllers
 
             return Ok(books);
         }
+
+        [HttpGet("bestsellers")]
+        public async Task<IActionResult> GetBestsellers()
+        {
+            var booksFromRepo = await _repo.GetBestsellers();
+
+            return Ok(booksFromRepo);
+        }
     }
 }

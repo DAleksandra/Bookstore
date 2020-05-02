@@ -14,19 +14,15 @@ import { ShoppingCartService } from 'src/app/_services/shopping-cart.service';
 export class BookDetailComponent implements OnInit {
   modalRef: BsModalRef;
   book: Book;
+  books: Book[];
+
   constructor(private modalService: BsModalService, private booksService: BooksService, private route: ActivatedRoute,
               private router: Router, private shoppingCartService: ShoppingCartService) { }
 
   ngOnInit() {
     
     const id: number = +this.route.snapshot.paramMap.get('id')
-    this.booksService.getBook(id).subscribe(x => {
-      this.book = x;
-      console.log(this.book);
-      this.book.inCart = 0;
-    }, error => {
-      console.log(error);
-    });
+    this.reloadBook(id);
     
   }
 
@@ -55,6 +51,28 @@ export class BookDetailComponent implements OnInit {
 
   addToFavourite(id: number) {
     this.book.favourite = !this.book.favourite;
+  }
+
+  goToDetail(id: number) {
+    this.router.navigate(['/book/', id]);
+    this.reloadBook(id);
+  }
+
+  reloadBook(id: number) {
+    this.booksService.getBook(id).subscribe(x => {
+      this.book = x;
+      console.log(this.book);
+      this.book.inCart = 0;
+    }, error => {
+      console.log(error);
+    });
+
+    this.booksService.getBestsellers().subscribe(x => {
+      this.books = x;
+      console.log(this.books);
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

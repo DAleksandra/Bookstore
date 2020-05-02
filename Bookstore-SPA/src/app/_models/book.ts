@@ -7,6 +7,7 @@ export class Book {
     stock: number;
     price: number;
     onSale: boolean;
+    saled: number;
     salePrice: number;
     publisher: string;
     language: string;

@@ -23,15 +23,11 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { Ng5SliderModule } from 'ng5-slider';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { MatListModule } from '@angular/material/list';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { AuthService } from './_services/auth.service';
 import { OrderFinalizeComponent } from './shopping-cart/order-finalize/order-finalize.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -65,6 +61,7 @@ export function tokenGetter() {
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       LayoutModule,
+      CarouselModule.forRoot(),
       ProgressbarModule.forRoot(),
       ModalModule.forRoot(),
       TooltipModule.forRoot(),
