@@ -11,23 +11,25 @@ import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { OrderFinalizeComponent } from './shopping-cart/order-finalize/order-finalize.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { RegulationsComponent } from './regulations/regulations.component';
+import { Auth } from './_guards/auth.guard';
 
 export const Routing: Routes = [
     {path: '', component: HomeComponent},
     {path: 'home', component: HomeComponent},
     {
         path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [Auth],
         children: [
-           
+            {path: 'finalize', component: OrderFinalizeComponent},
+            {path: 'profile', component: ProfileComponent},
+            {path: 'favourites', component: FavouritesComponent},
         ]
     },
     {path: 'login', component: LoginComponent},
-    {path: 'finalize', component: OrderFinalizeComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'books/:filter', component: BooksComponent},
     {path: 'book/:id', component: BookDetailComponent},
-    {path: 'profile', component: ProfileComponent},
-    {path: 'favourites', component: FavouritesComponent},
     {path: 'shoppingcart', component: ShoppingCartComponent},
     {path: 'about', component: AboutUsComponent},
     {path: 'shipping', component: ShippingComponent},

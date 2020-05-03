@@ -9,12 +9,16 @@
     </ng-template>
   </div>
   <div class="col">
-   <h2>{{book?.title}} <i class="fa fa-star  mr-3 ml-3 icon"
-    [ngClass]="{
-      'gold-star': book?.favourite,
-      'black-star': book?.favourite
-    }"
-    (click)="addToFavourite(book?.id)" id="star" style="font-size:28px;"></i></h2>
+    <div class="row">
+      <div class="col-10"><h2>{{book?.title}} </h2></div>
+      <div class="col-2"><i class="fa fa-star  mr-3 ml-3 icon"
+        [ngClass]="{
+          'gold-star': book?.favourite,
+          'black-star': book?.favourite
+        }"
+        (click)="addToFavourite(book?.id)" id="star" style="font-size:28px;"></i></div>
+    </div>
+   
    <h5 class="mb-2">{{book?.author}} </h5>
    <div class="mt-5">
     <p>Publisher: {{book?.publisher}}</p>

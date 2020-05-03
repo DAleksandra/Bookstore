@@ -3,6 +3,8 @@ import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { Book } from '../_models/book';
 import { OrderBook } from '../_models/order-book';
 import { Router } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -19,7 +21,8 @@ export class ShoppingCartComponent implements OnInit {
   shipping: number;
   
 
-  constructor(private shoppingCartService: ShoppingCartService, private router: Router) { }
+  constructor(private shoppingCartService: ShoppingCartService, private router: Router,
+              private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.shipping = this.shoppingCartService.shipping;
@@ -66,13 +69,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   order() {
-    this.router.navigate(['finalize']);
-   // this.shoppingCartService.addOrder().subscribe(x => {
-    //  console.log('ok');
-    //}, error => {
-    //  console.log(error);
-    //}
-     // );
+      this.router.navigate(['finalize']);
   }
 
 }
