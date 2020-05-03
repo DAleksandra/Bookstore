@@ -61,7 +61,6 @@ export class BookDetailComponent implements OnInit {
   reloadBook(id: number) {
     this.booksService.getBook(id).subscribe(x => {
       this.book = x;
-      console.log(this.book);
       this.book.inCart = 0;
     }, error => {
       console.log(error);
@@ -69,7 +68,6 @@ export class BookDetailComponent implements OnInit {
 
     this.booksService.getBestsellers().subscribe(x => {
       this.books = x;
-      console.log(this.books);
     }, error => {
       console.log(error);
     });

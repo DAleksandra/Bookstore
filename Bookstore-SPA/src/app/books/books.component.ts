@@ -23,6 +23,7 @@ export class BooksComponent implements OnInit {
   sales: boolean = false;
   sortOption: string;
   filters: Filters = new Filters();
+  loaded: boolean = false;
  
   options: Options = {
     floor: 0,
@@ -37,7 +38,7 @@ export class BooksComponent implements OnInit {
   ngOnInit() {
 
     this.route.params.forEach((params: Params) => {
-      this.activateGenre = params['filter']
+    this.activateGenre = params['filter']
   });
 
     this.filters.priceMin = this.value;
@@ -46,13 +47,7 @@ export class BooksComponent implements OnInit {
     this.filters.sortBy = this.sortOption;
     this.filters.sales = this.sales;
     this.genres = this.genresService.items;
-
-    this.booksService.getBooks(this.filters).subscribe((x: Book[]) => {
-      this.books = x;
-    }, error => {
-      console.log(error);
-    }
-    );
+    this.reloadBooks();
   }
 
   changeGenre(genre: string) {
@@ -82,6 +77,8 @@ export class BooksComponent implements OnInit {
  }
 
  reloadBooks () {
+   this.loaded = false;
+  
   this.filters.genre = this.activateGenre;
   this.filters.priceMin = this.value;
   this.filters.priceMax = this.highValue;
@@ -90,6 +87,7 @@ export class BooksComponent implements OnInit {
 
   this.booksService.getBooks(this.filters).subscribe((x: Book[]) => {
     this.books = x;
+    this.loaded = true;
   }, error => {
     console.log(error);
   }

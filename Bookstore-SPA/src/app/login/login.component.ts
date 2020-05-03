@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   model: any = {};
+  loaded: boolean = true;
 
   constructor(private authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
@@ -18,9 +19,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loaded = false;
     this.authService.login(this.model).subscribe(response => {
       this.alertify.success('Successfull loged in.');
       this.router.navigate(['/home']);
+      this.loaded = true;
     }, error => {
       this.alertify.error(error);
     });

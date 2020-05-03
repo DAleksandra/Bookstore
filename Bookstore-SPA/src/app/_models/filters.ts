@@ -4,4 +4,5 @@ export class Filters {
     priceMax: number;
     sales: boolean;
     sortBy: string;
+    bookName: string;
 }

@@ -34,7 +34,18 @@ namespace Bookstore.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBooks([FromQuery]Filters dateFilter)
         {
+            if(dateFilter.BookName == null)
+                dateFilter.BookName = "";
             var booksFromRepo = await _repo.GetBooks(dateFilter);
+            var books = _mapper.Map<ICollection<Book>>(booksFromRepo);
+
+            return Ok(books);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> GetSearchedBooks([FromQuery]string bookName)
+        {
+            var booksFromRepo = await _repo.GetSearchedBooks(bookName);
             var books = _mapper.Map<ICollection<Book>>(booksFromRepo);
 
             return Ok(books);

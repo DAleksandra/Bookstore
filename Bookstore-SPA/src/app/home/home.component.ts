@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.booksService.getBestsellers().subscribe(x => {
       this.books = x;
-      console.log(this.books);
     }, error => {
       console.log(error);
     });

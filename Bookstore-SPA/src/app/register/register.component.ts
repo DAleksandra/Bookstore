@@ -12,6 +12,7 @@ import { AlertifyService } from '../_services/alertify.service';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
+  loaded: boolean = true;
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService, private alertify: AlertifyService) { }
 
@@ -34,6 +35,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    this.loaded = false;
     const user = {
       username: this.registerForm.get('username').value,
       password: this.registerForm.get('password').value,
@@ -42,6 +44,7 @@ export class RegisterComponent implements OnInit {
     this.authService.register(user).subscribe(x => {
       this.alertify.success('Sucessfully registered. You can login now!');
       this.router.navigate(['login']);
+      this.loaded = true;
     }, error => {
       this.alertify.error("You can't register now. Try again!");
     });

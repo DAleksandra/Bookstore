@@ -9,6 +9,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MDBBootstrapModule, TooltipModule } from 'angular-bootstrap-md';
 
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -30,6 +31,7 @@ import { OrderFinalizeComponent } from './shopping-cart/order-finalize/order-fin
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ShippingComponent } from './shipping/shipping.component';
 import { RegulationsComponent } from './regulations/regulations.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -65,10 +67,12 @@ export function tokenGetter() {
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       LayoutModule,
+      ClickOutsideModule,
       CarouselModule.forRoot(),
       ProgressbarModule.forRoot(),
       ModalModule.forRoot(),
       TooltipModule.forRoot(),
+      TypeaheadModule.forRoot(),
       JwtModule.forRoot({
          config: {
             tokenGetter: tokenGetter,

@@ -1,4 +1,11 @@
-<div class="container mt-5">
+<div class="container" *ngIf="!loaded">
+  <div class="row-load">
+    <div class="spinner-border text-dark" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
+<div class="container mt-5" *ngIf="loaded">
   <div class="row justify-content-center align-items-center">
     <form [formGroup]="registerForm" (ngSubmit)="register()">
       <h2 class="text-center text-primary">Sign Up</h2>

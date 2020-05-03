@@ -41,3 +41,8 @@
     cursor: pointer;
     transition-timing-function: ease-out;
   }
+
+  .card-book {
+    width:  22%;
+    height: auto;
+}

@@ -7,6 +7,7 @@ namespace Bookstore.API.Models
         public float PriceMax { get; set; }
         public bool Sales { get; set; }
         public string SortBy { get; set; }
+        public string BookName { get; set; }
     }
     
 }

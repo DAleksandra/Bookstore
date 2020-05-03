@@ -2,11 +2,26 @@
   <div class="col">
 
       <div class="input-group mt-4">
-        <input type="text" class="form-control form-control-sm" type="text" placeholder="Search...">
-        <button class="searchButton">
+        <input type="text" class="form-control form-control-sm" type="text" placeholder="Search..." [(ngModel)]="bookName" (keyup)="onKey($event)"
+        (focus)="onFocus()" (clickOutside)="onBlur()">
+
+        <button class="searchButton" (click)="onSearch()">
           <i class="fa fa-search"></i>
        </button>
       </div>
+      <ul class="list-group" *ngIf="bookName && inputActive">
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let book of books" (click)="chooseBook(book.id)">
+          <div class="row">
+            <div class="col-3">
+              <img class="img-responsive" src={{book.photoUrl}} class = "img-responsive mb-3" width = "100%">
+            </div>
+            <div class="col-9">
+              <p>{{book.author}} - {{book.title}}</p>  
+            </div>
+          </div>
+           
+        </li>
+      </ul>
 
     
   </div>

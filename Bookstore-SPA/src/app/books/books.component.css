@@ -48,3 +48,9 @@
     color: gold;
 }
 
+.row-load {
+    text-align: center;
+    display: inline-block;
+    margin-left: 50%;
+    margin-top: 100px;
+}

@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 export class BooksService {
 baseUrl: string = 'http://localhost:5000/api/books';
 books: Book[];
+bookName: string = '';
 
 constructor(private http: HttpClient) { }
 
@@ -21,10 +22,12 @@ getBooks(filters: Filters) {
   params = params.append('PriceMax', filters.priceMax.toString());
   params = params.append('Sales', filters.sales.toString());
   params = params.append('SortBy', filters.sortBy);
+  params = params.append('BookName', this.bookName);
 
   return this.http.get<Book[]>(this.baseUrl, { observe: 'response', params}).pipe(
     map(response => {
       this.books = response.body;
+      this.bookName = '';
       return response.body;
     })
   );
@@ -37,6 +40,18 @@ getBook(id: number) {
 
 getBestsellers() {
   return this.http.get<Book[]>(this.baseUrl + '/bestsellers');
+}
+
+getSearchedBooks(filter: string) {
+  let params = new HttpParams();
+  params = params.append('bookName', filter);
+  return this.http.get<Book[]>(this.baseUrl + '/search', { observe: 'response', params}).pipe(
+    map(response => {
+      this.books = response.body;
+      this.bookName = '';
+      return response.body;
+    })
+  );
 }
 
 }

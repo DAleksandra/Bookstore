@@ -34,12 +34,14 @@ namespace Bookstore.API.Data
             {
                 if(filters.Sales == false)
                 {
-                    books = await _context.Books.Where(x => x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
+                    books = await _context.Books.Where(x => (x.Author.ToLower().Contains(filters.BookName.ToLower()) || x.Title.ToLower()
+                    .Contains(filters.BookName.ToLower())) && x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
                                                     && (x.Genre == filters.Genre || filters.Genre == "All")).OrderBy(x => x.Price).ToListAsync();
                 }
                 else
                 {
-                    books = await _context.Books.Where(x => (x.OnSale == filters.Sales) && x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
+                    books = await _context.Books.Where(x => (x.Author.ToLower().Contains(filters.BookName.ToLower()) || x.Title.ToLower()
+                    .Contains(filters.BookName.ToLower())) &&(x.OnSale == filters.Sales) && x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
                                                     && (x.Genre == filters.Genre || filters.Genre == "All")).OrderBy(x => x.Price).ToListAsync();
                 }
                 
@@ -48,12 +50,14 @@ namespace Bookstore.API.Data
             {
                 if(filters.Sales == false)
                 {
-                    books = await _context.Books.Where(x => x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
+                    books = await _context.Books.Where(x => (x.Author.ToLower().Contains(filters.BookName.ToLower()) || x.Title.ToLower()
+                    .Contains(filters.BookName.ToLower())) &&x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
                                                     && (x.Genre == filters.Genre || filters.Genre == "All")).OrderByDescending(x => x.Price).ToListAsync();
                 }
                 else
                 {
-                     books = await _context.Books.Where(x => x.OnSale == filters.Sales && x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
+                     books = await _context.Books.Where(x => (x.Author.ToLower().Contains(filters.BookName.ToLower()) || x.Title.ToLower()
+                    .Contains(filters.BookName.ToLower())) &&x.OnSale == filters.Sales && x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
                                                     && (x.Genre == filters.Genre || filters.Genre == "All")).OrderByDescending(x => x.Price).ToListAsync();
                 }
                
@@ -62,12 +66,14 @@ namespace Bookstore.API.Data
             {
                 if(filters.Sales == false)
                 {
-                    books = await _context.Books.Where(x => x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
+                    books = await _context.Books.Where(x => (x.Author.ToLower().Contains(filters.BookName.ToLower()) || x.Title.ToLower()
+                    .Contains(filters.BookName.ToLower())) &&x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
                                                     && (x.Genre == filters.Genre || filters.Genre == "All")).OrderBy(x => x.Title).ToListAsync();
                 }
                 else
                 {
-                      books = await _context.Books.Where(x => x.OnSale == filters.Sales && x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
+                      books = await _context.Books.Where(x => (x.Author.ToLower().Contains(filters.BookName.ToLower()) || x.Title.ToLower()
+                    .Contains(filters.BookName.ToLower())) &&x.OnSale == filters.Sales && x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
                                                     && (x.Genre == filters.Genre || filters.Genre == "All")).OrderBy(x => x.Title).ToListAsync();
                 }
                
@@ -76,12 +82,14 @@ namespace Bookstore.API.Data
             {
                 if(filters.Sales == false)
                 {
-                    books = await _context.Books.Where(x => x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
+                    books = await _context.Books.Where(x => (x.Author.ToLower().Contains(filters.BookName.ToLower()) || x.Title.ToLower()
+                    .Contains(filters.BookName.ToLower())) &&x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
                                                     && (x.Genre == filters.Genre || filters.Genre == "All")).OrderByDescending(x => x.Title).ToListAsync();
                 }
                 else
                 {
-                     books = await _context.Books.Where(x => x.OnSale == filters.Sales && x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
+                     books = await _context.Books.Where(x => (x.Author.ToLower().Contains(filters.BookName.ToLower()) || x.Title.ToLower()
+                    .Contains(filters.BookName.ToLower())) &&x.OnSale == filters.Sales && x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
                                                     && (x.Genre == filters.Genre || filters.Genre == "All")).OrderByDescending(x => x.Title).ToListAsync();
                 }
                 
@@ -90,12 +98,14 @@ namespace Bookstore.API.Data
             {
                 if(filters.Sales == false)
                 {
-                    books = await _context.Books.Where(x => x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
+                    books = await _context.Books.Where(x => (x.Author.ToLower().Contains(filters.BookName.ToLower()) || x.Title.ToLower()
+                    .Contains(filters.BookName.ToLower())) &&x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
                                                     && (x.Genre == filters.Genre || filters.Genre == "All")).ToListAsync();
                 }
                 else
                 {
-                     books = await _context.Books.Where(x => x.OnSale == filters.Sales && x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
+                     books = await _context.Books.Where(x => (x.Author.ToLower().Contains(filters.BookName.ToLower()) || x.Title.ToLower()
+                    .Contains(filters.BookName.ToLower())) &&x.OnSale == filters.Sales && x.Price <= filters.PriceMax && x.Price >= filters.PriceMin
                                                     && (x.Genre == filters.Genre || filters.Genre == "All")).ToListAsync();
                 }
                 
@@ -172,6 +182,14 @@ namespace Bookstore.API.Data
         public async Task<ICollection<Book>> GetBestsellers()
         {
             var books = await _context.Books.OrderByDescending(x => x.Saled).Take(4).ToListAsync();
+
+            return books;
+        }
+
+        public async Task<ICollection<Book>> GetSearchedBooks(string filter)
+        {
+            var books = await _context.Books.Where(x => x.Title.ToLower().Contains(filter.ToLower()) || x.Author.ToLower().
+            Contains(filter.ToLower())).Take(5).ToListAsync();
 
             return books;
         }
