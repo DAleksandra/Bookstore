@@ -28,6 +28,8 @@ import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { AuthService } from './_services/auth.service';
 import { OrderFinalizeComponent } from './shopping-cart/order-finalize/order-finalize.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { ShippingComponent } from './shipping/shipping.component';
+import { RegulationsComponent } from './regulations/regulations.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -48,7 +50,9 @@ export function tokenGetter() {
       ShoppingCartComponent,
       AboutUsComponent,
       BookDetailComponent,
-      OrderFinalizeComponent
+      OrderFinalizeComponent,
+      ShippingComponent,
+      RegulationsComponent
    ],
    imports: [
       BrowserModule,
@@ -72,7 +76,6 @@ export function tokenGetter() {
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
       })
-      
    ],
    providers: [AuthService],
    bootstrap: [
