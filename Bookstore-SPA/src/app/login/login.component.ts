@@ -25,7 +25,8 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/home']);
       this.loaded = true;
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error("Cannot login. Check credentials.");
+      this.loaded = true;
     });
   }
 

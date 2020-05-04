@@ -50,6 +50,14 @@ namespace Bookstore.API.Controllers
 
         }
 
+        [HttpPut("password/change")]
+        public async Task<IActionResult> ChangePassword([FromBody]PasswordForChangeDto passwordForChange)
+        {
+            var changedUser = await _repo.ChangePassword(passwordForChange.Username, passwordForChange.CurrentPassword, passwordForChange.NewPassword);
+
+            return Ok(changedUser);
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {

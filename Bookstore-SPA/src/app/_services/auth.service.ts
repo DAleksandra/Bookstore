@@ -49,4 +49,9 @@ loggedIn() {
   return !this.jwtHelper.isTokenExpired(token);
 }
 
+changePassword(currentPassword: string, newPassword: string) {
+  return this.http.put(this.baseUrl + 'password/change', {Username: this.decodedToken.unique_name, NewPassword: newPassword,
+                      CurrentPassword: currentPassword});
+}
+
 }

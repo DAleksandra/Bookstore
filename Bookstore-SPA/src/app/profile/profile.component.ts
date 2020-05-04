@@ -4,6 +4,8 @@ import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Order } from '../_models/order';
 import { BooksService } from '../_services/books.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -22,13 +24,41 @@ export class ProfileComponent implements OnInit {
   order = new Order();
   orders: Order[];
   addresses: Address[];
+  registerForm: FormGroup;
+  loaded: boolean = true;
 
-  constructor(private shoppingCartService: ShoppingCartService, private alertify: AlertifyService, private bookService: BooksService) { }
+  constructor(private shoppingCartService: ShoppingCartService, private alertify: AlertifyService, private bookService: BooksService,
+              private fb: FormBuilder, private authService: AuthService) { }
 
   ngOnInit() {
     this.getAddresses();
     this.getOrders();
+
+    this.registerForm = this.fb.group({
+      currentPassword: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
+      passwordConfirm: ['', Validators.required],
+
+    }, {validator: this.passwordMatchValidator});
   }
+
+  changePassword() {
+    this.loaded = false;
+    this.authService.changePassword(this.registerForm.get('currentPassword').value, this.registerForm.get('password').value).
+    subscribe(x => {
+      this.alertify.success("Password successfully changed.")
+      this.registerForm.reset();
+      this.loaded = true;
+    }, error => {
+      this.alertify.error("Password cannot be changed. Check if you apply valid password.");
+      this.loaded = true;
+    });
+  }
+
+  passwordMatchValidator(g: FormGroup) {
+    return g.get('password').value === g.get('passwordConfirm').value ? null : {'mismatch': true};
+  }
+
   getAddresses() {
     this.shoppingCartService.getAddresses().subscribe(x => {
       this.addresses = x;

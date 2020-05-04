@@ -7,6 +7,7 @@ namespace Bookstore.API.Data
     {
         Task<User> Register (User user, string password);
         Task<User> Login (string username, string password);
+        Task<User> ChangePassword(string username, string currentPassword, string newPassword);
         Task<bool> UserExists(string username);
     }
 }

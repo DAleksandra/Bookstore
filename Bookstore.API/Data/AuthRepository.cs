@@ -40,6 +40,28 @@ namespace Bookstore.API.Data
             }
         }
 
+        public async Task<User> ChangePassword(string username, string currentPassword, string newPassword)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+
+            if(user == null)
+                return null;
+
+            if(!VerifyPasswordHash(currentPassword, user.PasswordHash, user.PasswordSalt))
+                return null;
+
+            byte[] newPasswordHash, newPasswordSalt;
+
+            CreatePasswordHash(newPassword, out newPasswordHash, out newPasswordSalt);
+
+            user.PasswordHash = newPasswordHash;
+            user.PasswordSalt = newPasswordSalt;
+
+            await _context.SaveChangesAsync();
+
+            return user;
+        }
+
         public async Task<User> Register(User user, string password)
         {
             byte[] passwordHash, passwordSalt;
@@ -71,6 +93,8 @@ namespace Bookstore.API.Data
 
             return true;
 
-        }  
+        }
+
+        
     }
 }
