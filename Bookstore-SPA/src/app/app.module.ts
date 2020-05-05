@@ -32,6 +32,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ShippingComponent } from './shipping/shipping.component';
 import { RegulationsComponent } from './regulations/regulations.component';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { AdminComponent } from './admin/admin.component';
+import { WorkerComponent } from './worker/worker.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -54,7 +56,9 @@ export function tokenGetter() {
       BookDetailComponent,
       OrderFinalizeComponent,
       ShippingComponent,
-      RegulationsComponent
+      RegulationsComponent,
+      AdminComponent,
+      WorkerComponent
    ],
    imports: [
       BrowserModule,

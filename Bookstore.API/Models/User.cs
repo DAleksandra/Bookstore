@@ -9,6 +9,7 @@ namespace Bookstore.API.Models
         public string Email { get; set; }
         public ICollection<Order>? Orders { get; set; }
         public ICollection<Address>? Addresses { get; set; }
+        public string UserType { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         

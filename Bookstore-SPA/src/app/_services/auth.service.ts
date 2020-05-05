@@ -30,7 +30,8 @@ login(model: any)
       const user = response;
       if (user) {
         localStorage.setItem('token', user.token);
-        localStorage.setItem('user', JSON.stringify(user.user));       
+        localStorage.setItem('user', JSON.stringify(user.user));
+        console.log(localStorage.getItem('user'));
         this.decodedToken = this.jwtHelper.decodeToken(user.token);
         this.currentUser = user.user;
         this.welcomeUser.next(this.decodedToken.unique_name);

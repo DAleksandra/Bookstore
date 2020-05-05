@@ -3,7 +3,6 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { BooksService } from 'src/app/_services/books.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Book } from 'src/app/_models/book';
-import { Filters } from 'src/app/_models/filters';
 import { ShoppingCartService } from 'src/app/_services/shopping-cart.service';
 
 @Component({
@@ -17,14 +16,18 @@ export class BookDetailComponent implements OnInit {
   books: Book[];
 
   constructor(private modalService: BsModalService, private booksService: BooksService, private route: ActivatedRoute,
-              private router: Router, private shoppingCartService: ShoppingCartService) { }
+              private router: Router, private shoppingCartService: ShoppingCartService) { 
+              }
 
   ngOnInit() {
     
-    const id: number = +this.route.snapshot.paramMap.get('id')
+    this.route.params.subscribe(params => {
+      const id: number = +this.route.snapshot.paramMap.get('id');
     this.reloadBook(id);
-    
+    });    
   }
+
+  
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);

@@ -36,18 +36,19 @@ export class BooksComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.route.params.forEach((params: Params) => {
-    this.activateGenre = params['filter']
+    this.route.params.subscribe(params => {
+      this.route.params.forEach((params: Params) => {
+        this.activateGenre = params['filter'];
+        this.filters.priceMin = this.value;
+        this.filters.priceMax = this.highValue;
+        this.filters.genre = this.activateGenre;
+        this.filters.sortBy = this.sortOption;
+        this.filters.sales = this.sales;
+        this.genres = this.genresService.items;
+        this.reloadBooks();
+    });
   });
 
-    this.filters.priceMin = this.value;
-    this.filters.priceMax = this.highValue;
-    this.filters.genre = this.activateGenre;
-    this.filters.sortBy = this.sortOption;
-    this.filters.sales = this.sales;
-    this.genres = this.genresService.items;
-    this.reloadBooks();
   }
 
   changeGenre(genre: string) {
