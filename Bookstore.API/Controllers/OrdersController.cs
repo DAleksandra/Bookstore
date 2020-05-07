@@ -66,6 +66,16 @@ namespace Bookstore.API.Controllers
             return Ok(orders);
         }
 
+        [HttpGet("worker")]
+        public async Task<IActionResult> GerOrdersWorker()
+        {
+            var ordersFromRepo = await _repo.GetOrdersWorker();
+
+            var orders = _mapper.Map<IEnumerable<OrderToReturnDto>>(ordersFromRepo);
+
+            return Ok(orders);
+        }
+
         [HttpGet("books")]
         public async Task<IActionResult> GerOrderBooks(int userId)
         {

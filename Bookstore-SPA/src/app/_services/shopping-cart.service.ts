@@ -46,6 +46,14 @@ constructor(private http: HttpClient, private authService: AuthService) {
     );
   }
 
+  getOrdersWorker() {
+    return this.http.get<Order[]>(this.baseUrl + this.authService.decodedToken.nameid + '/orders/worker').pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+
 
   updateAddress(address: Address)
   {

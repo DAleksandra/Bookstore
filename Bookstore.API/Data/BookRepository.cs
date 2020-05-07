@@ -153,6 +153,13 @@ namespace Bookstore.API.Data
 
            return orders;
         }
+
+        public async Task<ICollection<Order>> GetOrdersWorker()
+        {
+           var orders = await _context.Orders.Include(x => x.Books).ToListAsync();
+
+           return orders;
+        }
         public async Task<Order> GetOrder(int userId, int id)
         {
             var order = await _context.Orders.Where(a => a.UserId == userId && a.Id == id).FirstOrDefaultAsync();

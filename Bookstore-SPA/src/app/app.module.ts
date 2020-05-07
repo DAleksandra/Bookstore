@@ -33,7 +33,11 @@ import { ShippingComponent } from './shipping/shipping.component';
 import { RegulationsComponent } from './regulations/regulations.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { AdminComponent } from './admin/admin.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { WorkerComponent } from './worker/worker.component';
+import { EditOrderComponent } from './admin/edit-order/edit-order.component';
+import { NewBookComponent } from './admin/new-book/new-book.component';
+import { EditBookComponent } from './admin/edit-book/edit-book.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -58,7 +62,10 @@ export function tokenGetter() {
       ShippingComponent,
       RegulationsComponent,
       AdminComponent,
-      WorkerComponent
+      WorkerComponent,
+      EditOrderComponent,
+      EditBookComponent,
+      NewBookComponent
    ],
    imports: [
       BrowserModule,
@@ -72,6 +79,7 @@ export function tokenGetter() {
       BsDropdownModule.forRoot(),
       LayoutModule,
       ClickOutsideModule,
+      TabsModule.forRoot(),
       CarouselModule.forRoot(),
       ProgressbarModule.forRoot(),
       ModalModule.forRoot(),

@@ -13,7 +13,10 @@ import { Book } from '../_models/book';
 export class NavComponent implements OnInit {
   bookName: string;
   books: Book[];
+  admin: boolean = false;
+  worker: boolean = false;
   inputActive: boolean = false;
+  subscription: any;
 
   constructor(private authService: AuthService, private router: Router, private alertify: AlertifyService,
               private booksService: BooksService) { }
@@ -29,12 +32,23 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     this.bookName = '';
+    this.subscription = this.authService.userType.subscribe(x => {
+      if(x === 'Admin') {
+        this.admin = true;
+        this.worker = false;
+        
+      }
+      if(x === 'Worker') {
+        this.admin = false;
+        this.worker = true;
+      }
+    });
   }
 
   userProfile() {
     if(this.authService.loggedIn() === true)
     {
-      
+     
     }
     else {
       this.router.navigate(['/login']);
@@ -42,6 +56,7 @@ export class NavComponent implements OnInit {
   }
 
   logged() {
+    
     return this.authService.loggedIn();
   }
 

@@ -4,6 +4,7 @@ import { User } from '../_models/user';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject } from 'rxjs';
+import { EventEmitter } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   decodedToken: any;
   currentUser: User;
+  public userType = new BehaviorSubject<string>('');
   public welcomeUser = new BehaviorSubject<string>('');
 
 constructor(private http: HttpClient) { 
@@ -31,14 +33,16 @@ login(model: any)
       if (user) {
         localStorage.setItem('token', user.token);
         localStorage.setItem('user', JSON.stringify(user.user));
-        console.log(localStorage.getItem('user'));
         this.decodedToken = this.jwtHelper.decodeToken(user.token);
         this.currentUser = user.user;
         this.welcomeUser.next(this.decodedToken.unique_name);
+        this.userType.next(user.user.userType);
       }
     })
   );
 }
+
+
 
 register(model: any)
 {

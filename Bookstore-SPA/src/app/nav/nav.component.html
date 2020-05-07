@@ -31,7 +31,7 @@
   <div class="col">
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
       <button id="button-animated" type="button" class="btn btn-link">
-        <i class="fa fa-star mr-1 mt-1 ml-3 icon" [routerLink]="['/favourites']" style="font-size:48px;"></i>
+        <i class="fa fa-star mr-1 mt-1 ml-3 icon" [routerLink]="['/favourites']" *ngIf="!admin && !worker" style="font-size:48px;"></i>
       </button>
       
       <div class="btn-group" dropdown >
@@ -39,13 +39,15 @@
           <i class="fa fa-user mr-1 mt-1 icon"  (click)="userProfile()" style="font-size:48px;"></i>
         </button>
         <ul   class="dropdown-menu" *ngIf="logged()">
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/profile']">Profile</a></li>
+          <li role="menuitem"><a class="dropdown-item" *ngIf="!admin && !worker" [routerLink]="['/profile']">Profile</a></li>
+          <li role="menuitem"><a class="dropdown-item" *ngIf="worker" [routerLink]="['/worker']">Profile</a></li>
+          <li role="menuitem"><a class="dropdown-item" *ngIf="admin" [routerLink]="['/admin']">Profile</a></li>
           <li role="menuitem"><a class="dropdown-item" (click)="logout()">Log out</a></li>
         </ul>
       </div>
 
       <button id="button-animated" type="button" class="btn btn-link">
-        <i class="fa fa-shopping-cart icon" [routerLink]="['/shoppingcart']" style="font-size:48px;"></i>
+        <i class="fa fa-shopping-cart icon" [routerLink]="['/shoppingcart']" *ngIf="!admin && !worker" style="font-size:48px;"></i>
       </button>
       
       
