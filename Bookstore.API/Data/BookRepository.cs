@@ -154,15 +154,24 @@ namespace Bookstore.API.Data
            return orders;
         }
 
-        public async Task<ICollection<Order>> GetOrdersWorker()
+        public async Task<ICollection<Order>> GetOrdersWorker(string status)
         {
-           var orders = await _context.Orders.Include(x => x.Books).ToListAsync();
+            if(status == null || status == "all")
+            {
+                var orders = await _context.Orders.Include(x => x.Books).ToListAsync();
 
-           return orders;
+                return orders;
+            }
+            else 
+            {
+                var orders = await _context.Orders.Include(x => x.Books).Where(x => x.Status == status).ToListAsync();
+
+                return orders;
+            }
         }
         public async Task<Order> GetOrder(int userId, int id)
         {
-            var order = await _context.Orders.Where(a => a.UserId == userId && a.Id == id).FirstOrDefaultAsync();
+            var order = await _context.Orders.Where(a =>  a.Id == id).FirstOrDefaultAsync();
 
             return order;
         }
@@ -200,5 +209,7 @@ namespace Bookstore.API.Data
 
             return books;
         }
+
+
     }
 }

@@ -1,11 +1,6 @@
 <div class="container ml-5">
   <div class="row">
-    
-    
-      <div class="alert alert-info" *ngIf="editForm.dirty">
-        <strong>Information:</strong> You have made changes. Any unsaved changes will be lost!
-      </div>
-  
+
 
       <div class="container mt-2">
         <button type="button" class="btn btn-primary mt-4 mb-3" (click)="leaveOrder()">Return</button>
@@ -38,18 +33,21 @@
         </tbody>
       </table> 
    
-            <form #editForm="ngForm" id="editForm" (ngSubmit)="updateOrder()">
-              <div class="form-group">
-                <label for="exampleSelect1">Status</label>
-                <select class="form-control" [(ngModel)]="order.status">
-                  <option>Placed</option>
-                  <option>Collected</option>
-                  <option>Packed</option>
-                  <option>Sent</option>
-                  <option>Received</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-success mr-2 ml-2 mt-4">Submit</button>
-              <button type="button" class="btn btn-secondary mt-4 mr-2" (click)="leaveOrder()">Delete</button>
-            </form>
+      <div class="row">
+        <div class="form-group">
+          <label>Status</label>
+          <select class="form-control" [(ngModel)]="statusEdit" (change)="onStatusClick()">
+            <option>placed</option>
+            <option>collected</option>
+            <option>packed</option>
+            <option>sent</option>
+            <option>received</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success mr-2 ml-2 mt-4" (click)="updateOrder()">Submit</button>
+                <button type="button" class="btn btn-secondary mt-4 mr-2" (click)="deleteOrder()">Delete</button>
+      </div>
+            
+              
+            
 </div>

@@ -67,9 +67,10 @@ namespace Bookstore.API.Controllers
         }
 
         [HttpGet("worker")]
-        public async Task<IActionResult> GerOrdersWorker()
+        public async Task<IActionResult> GerOrdersWorker([FromQuery]string state)
         {
-            var ordersFromRepo = await _repo.GetOrdersWorker();
+            
+            var ordersFromRepo = await _repo.GetOrdersWorker(state.ToLower());
 
             var orders = _mapper.Map<IEnumerable<OrderToReturnDto>>(ordersFromRepo);
 
@@ -178,7 +179,42 @@ namespace Bookstore.API.Controllers
             }
 
             return BadRequest("Could not update income.");
-        }        
+        }
+
+        [HttpPut("{id}")]     
+        public async Task<IActionResult> UpdateOrder(int id, int userId, OrderForUpdateDto orderForUpdateDto)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var orderFromRepo = await _repo.GetOrder(userId, id);
+           
+            
+            _mapper.Map(orderForUpdateDto, orderFromRepo);
+
+            if(await _repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            return BadRequest("Could not update order.");
+        }   
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteOrder(int id, int userId)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var orderFromRepo = await _repo.GetOrder(userId, id);
+
+            _repo.Delete(orderFromRepo);
+
+            if(await _repo.SaveAll())
+                return Ok();
+
+            return BadRequest("Failed to delete order.");
+        }
 
         [HttpDelete("address/{id}")]
         public async Task<IActionResult> DeleteAddress(int id, int userId)

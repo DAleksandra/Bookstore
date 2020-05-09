@@ -16,6 +16,7 @@ import { OrderBook } from '../_models/order-book';
 export class AdminComponent implements OnInit {
   order = new Order();
   filter: string;
+  status: string;
   filters: Filters = new Filters();
   orders: Order[];
   book = new Book();
@@ -41,20 +42,26 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.activateGenre = 'All';
+    this.status='All';
     this.getOrders();
     this.reloadBooks();
+    
     
   }
 
   getOrders() {
-    this.shoppingCartService.getOrdersWorker().subscribe(x => {
-      this.orders = x;
+    this.shoppingCartService.getOrdersWorker(this.status).subscribe(x => {
+      this.orders = x.body;
     }, error => {
       console.log(error);
     });
     this.genres = this.genresService.items;
 
   
+  }
+
+  sortByStatus() {
+    this.getOrders();
   }
 
 
@@ -84,6 +91,7 @@ export class AdminComponent implements OnInit {
 
 
   onLeaveOrder(leave: boolean) {
+    this.getOrders();
     this.viewOrder = false;
   }
 
