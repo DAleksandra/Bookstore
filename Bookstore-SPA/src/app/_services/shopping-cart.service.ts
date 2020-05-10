@@ -60,6 +60,9 @@ constructor(private http: HttpClient, private authService: AuthService) {
 
   updateOrder(order: Order) {
     order.books = null;
+    if(order.status === 'sent') {
+      order.shippingDate = new Date();
+    }
     return this.http.put(this.baseUrl + this.authService.decodedToken.nameid + '/orders/' + order.id, order);
   }
 

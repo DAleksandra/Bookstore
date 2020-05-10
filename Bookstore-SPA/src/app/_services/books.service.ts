@@ -38,6 +38,21 @@ getBook(id: number) {
   return this.http.get<Book>(this.baseUrl + '/' + id);
 }
 
+updateBook(book: Book)
+{
+  return this.http.put(this.baseUrl + '/' + book.id, book);
+}
+
+deleteBook(id: number) {
+  return this.http.delete(this.baseUrl + '/' + id);
+}
+
+addBook(book: Book) {
+  return this.http.post(this.baseUrl, {Title: book.title, Author: book.author, Description: book.description, PhotoUrl: book.photoUrl,
+                        Stock: book.stock, Saled: book.saled, Price: book.price, OnSale: book.onSale, SalePrice: book.salePrice,
+                        Language: book.language, Publisher: book.publisher, Genre: book.genre, PublishingDate: book.publishingDate});
+}
+
 getBestsellers() {
   return this.http.get<Book[]>(this.baseUrl + '/bestsellers');
 }

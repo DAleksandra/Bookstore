@@ -80,6 +80,7 @@ export class AdminComponent implements OnInit {
   }
 
   viewBookOn(book: Book) {
+    this.book = book;
     this.bookEdit = true;
 
   }
@@ -93,11 +94,13 @@ export class AdminComponent implements OnInit {
   onLeaveOrder(leave: boolean) {
     this.getOrders();
     this.viewOrder = false;
+
   }
 
   onLeaveBook() {
     this.bookEdit = false;
     this.bookNew = false;
+    this.reloadBooks();
   }
 
   filterBooks() {

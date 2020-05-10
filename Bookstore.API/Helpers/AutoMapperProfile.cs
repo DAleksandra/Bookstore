@@ -24,6 +24,7 @@ namespace Bookstore.API.Helpers
             CreateMap<Address, AddressToReturnDto>();
             CreateMap<AddressToReturnDto, Address>();
             CreateMap<OrderForUpdateDto, Order>();
+            CreateMap<BookToCreateDto, Book>();
         }
     }
 }

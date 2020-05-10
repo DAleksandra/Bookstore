@@ -10,6 +10,7 @@ export class Book {
     saled: number;
     salePrice: number;
     publisher: string;
+    genre: string;
     language: string;
     publishingDate: Date;
     favourite: boolean;

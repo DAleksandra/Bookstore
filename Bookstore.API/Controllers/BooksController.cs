@@ -58,5 +58,51 @@ namespace Bookstore.API.Controllers
 
             return Ok(booksFromRepo);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveBook(int id)
+        {
+            var bookFromRepo = await _repo.GetBook(id);
+
+            _repo.Delete(bookFromRepo);
+
+            if(await _repo.SaveAll())
+            {
+                return Ok();
+            }
+
+            return BadRequest("Failed to delete book.");
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBook(int id, BookToCreateDto bookForUpdateDto)
+        {
+            var bookFromRepo = await _repo.GetBook(id);
+
+            _mapper.Map(bookForUpdateDto, bookFromRepo);
+
+            if(await _repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            return BadRequest("Could not update book.");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBook(BookToCreateDto bookForCreation)
+        {
+            var book = _mapper.Map<Book>(bookForCreation);
+
+            _repo.Add(book);
+
+            if(await _repo.SaveAll())
+            {
+                var bookToReturn = _mapper.Map<BookToReturnDto>(book);
+                return CreatedAtRoute("GetBook", new {id = book.Id}, bookToReturn);
+            }
+
+            return BadRequest("Could not add the book.");
+        }
     }
 }

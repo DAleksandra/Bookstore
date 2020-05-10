@@ -160,7 +160,7 @@
   <app-new-book (leave)="onLeaveBook()"></app-new-book>
 </div>
 <div class="row" *ngIf="bookEdit">
-  <app-edit-book (leave)="onLeaveBook()"></app-edit-book>
+  <app-edit-book (leave)="onLeaveBook()" [book]="book"></app-edit-book>
 </div>
         
       </tab>

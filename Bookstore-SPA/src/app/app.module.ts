@@ -38,6 +38,7 @@ import { WorkerComponent } from './worker/worker.component';
 import { EditOrderComponent } from './admin/edit-order/edit-order.component';
 import { NewBookComponent } from './admin/new-book/new-book.component';
 import { EditBookComponent } from './admin/edit-book/edit-book.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -78,6 +79,7 @@ export function tokenGetter() {
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       LayoutModule,
+      BsDatepickerModule.forRoot(),
       ClickOutsideModule,
       TabsModule.forRoot(),
       CarouselModule.forRoot(),
