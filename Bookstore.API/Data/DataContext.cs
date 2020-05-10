@@ -12,6 +12,8 @@ namespace Bookstore.API.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderBook> OrderedBooks { get; set; }
+        public DbSet<FavouriteBook> FavouriteBooks { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Banner> Banners { get; set; }
     }
 }

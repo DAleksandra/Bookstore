@@ -140,6 +140,21 @@ namespace Bookstore.API.Data
 
 
         }
+
+        public async Task<ICollection<Banner>> GetBanners()
+        {
+            var banners = await _context.Banners.ToListAsync();
+
+            return banners;
+        }
+
+        public async Task<Banner> GetBanner(int bannerId)
+        {
+            var banner = await _context.Banners.Where(x => x.Id == bannerId).FirstOrDefaultAsync();
+
+            return banner;
+        }
+
         public async Task<Address> GetAddress(int userId, int id)
         {
             var address = await _context.Addresses.Where(a => a.UserId == userId && a.Id == id).FirstOrDefaultAsync();
@@ -208,6 +223,20 @@ namespace Bookstore.API.Data
             Contains(filter.ToLower())).Take(5).ToListAsync();
 
             return books;
+        }
+
+        public async Task<ICollection<FavouriteBook>> GetFavourites(int userId) 
+        {
+            var favourites = await _context.FavouriteBooks.Where(x => x.UserId == userId).ToListAsync();
+
+            return favourites;
+        }
+
+        public async Task<FavouriteBook> GetFavourite(int favId) 
+        {
+            var favourite = await _context.FavouriteBooks.Where(x => x.Id == favId).FirstOrDefaultAsync();
+
+            return favourite;
         }
 
 

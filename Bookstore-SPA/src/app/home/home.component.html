@@ -19,14 +19,8 @@
   </carousel>
 
   <div class="row mt-3">
-    <div class="col">
-      <img class="banner" [routerLink]="['/books/Fantasy']" routerLinkActive="router-link-active"  src="../assets/pic1.png" alt="third slide" style="display: block; width: 100%;">
-    </div>
-    <div class="col">
-      <img class="banner" [routerLink]="['/books/Horror']" src="../assets/pic2.png" alt="third slide" style="display: block; width: 100%;">
-    </div>
-    <div class="col">
-      <img  class="banner" [routerLink]="['/books/All']" src="../assets/pic3.png" alt="third slide" style="display: block; width: 100%;">
+    <div class="col" *ngFor="let banner of banners">
+      <img class="banner" (click)="onBannerClick(banner.id)" src="{{banner.photoUrl}}" alt="third slide" style="display: block; width: 100%;">
     </div>
   </div>
 

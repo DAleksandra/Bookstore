@@ -7,6 +7,7 @@ import { Address } from '../_models/address';
 import { map } from 'rxjs/operators';
 import { Order } from '../_models/order';
 import { Observable } from 'rxjs';
+import { Banner } from '../_models/banner';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,18 @@ constructor(private http: HttpClient, private authService: AuthService) {
         return response;
       })
     );
+  }
+
+  getBanners() {
+    return this.http.get<Banner[]>(this.baseUrl + this.authService.decodedToken.nameid + '/orders/banners').pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+
+  updateBanner(banner: Banner) {
+    return this.http.put(this.baseUrl + this.authService.decodedToken.nameid + '/orders/banners/' + banner.id, {PhotoUrl: banner.photoUrl, Query: banner.query});
   }
 
   getOrdersWorker(filter: string) {

@@ -4,6 +4,7 @@ import { Book } from '../_models/book';
 import { Filters } from '../_models/filters';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Banner } from '../_models/banner';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,8 @@ addBook(book: Book) {
 getBestsellers() {
   return this.http.get<Book[]>(this.baseUrl + '/bestsellers');
 }
+
+
 
 getSearchedBooks(filter: string) {
   let params = new HttpParams();

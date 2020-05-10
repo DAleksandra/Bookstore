@@ -15,7 +15,11 @@ namespace Bookstore.API.Data
          Task<ICollection<Book>> GetSearchedBooks(string filter);
          Task<ICollection<Book>> GetBestsellers();
          Task<User> GetUser(int userId);
+         Task<ICollection<Banner>> GetBanners();
+         Task<Banner> GetBanner(int bannerId);
          Task<ICollection<Address>> GetAddresses(int userId);
+         Task<ICollection<FavouriteBook>> GetFavourites(int userId);
+         Task<FavouriteBook> GetFavourite(int favId); 
         Task<Address> GetAddress(int userId, int id);
         Task<ICollection<Order>> GetOrders(int userId);
         Task<ICollection<Order>> GetOrdersWorker(string status);

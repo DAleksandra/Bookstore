@@ -3,39 +3,20 @@ using System;
 using Bookstore.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bookstore.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200510125420_AddBanners")]
+    partial class AddBanners
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0");
-
-            modelBuilder.Entity("Bookstore.API.Data.FavouriteBook", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("FavouriteBooks");
-                });
 
             modelBuilder.Entity("Bookstore.API.Data.OrderBook", b =>
                 {
@@ -129,9 +110,6 @@ namespace Bookstore.API.Migrations
 
                     b.Property<string>("Language")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("MyProperty")
-                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("OnSale")
                         .HasColumnType("INTEGER");
@@ -238,21 +216,6 @@ namespace Bookstore.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Bookstore.API.Data.FavouriteBook", b =>
-                {
-                    b.HasOne("Bookstore.API.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Bookstore.API.Models.User", "User")
-                        .WithMany("FavouriteBook")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Bookstore.API.Data.OrderBook", b =>

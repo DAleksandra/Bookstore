@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Bookstore.API.Models
 {
@@ -18,6 +19,8 @@ namespace Bookstore.API.Models
         public string Publisher { get; set; }
         public string Genre { get; set; }
         public DateTime PublishingDate { get; set; }
+        public int MyProperty { get; set; }
+        
 
     }
 }

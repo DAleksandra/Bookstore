@@ -7,6 +7,8 @@ import { GenresService } from '../_services/genres.service';
 import { Options } from 'ng5-slider';
 import { Filters } from '../_models/filters';
 import { OrderBook } from '../_models/order-book';
+import { Banner } from '../_models/banner';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-admin',
@@ -36,17 +38,19 @@ export class AdminComponent implements OnInit {
     ceil: 100
   };
   router: any;
+  banners: Banner[];
+  banner = new Banner();
+  bannerEditing = false;
 
   constructor(private shoppingCartService: ShoppingCartService, private bookService: BooksService,
-              private genresService: GenresService) { }
+              private genresService: GenresService, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.activateGenre = 'All';
     this.status='All';
     this.getOrders();
     this.reloadBooks();
-    
-    
+    this.getBanners();
   }
 
   getOrders() {
@@ -60,8 +64,36 @@ export class AdminComponent implements OnInit {
   
   }
 
+  getBanners() {
+    this.shoppingCartService.getBanners().subscribe(x => {
+      this.banners = x;
+    });
+  }
+
   sortByStatus() {
     this.getOrders();
+  }
+
+  onBanner(id: number) {
+    this.bannerEditing = true;
+    this.banner.id = this.banners[id - 1].id;
+    this.banner.photoUrl = this.banners[id - 1].photoUrl;
+    this.banner.query = this.banners[id - 1].query;
+  }
+
+  editBanner() {
+    this.shoppingCartService.updateBanner(this.banner).subscribe(x => {
+      this.alertify.success("Banner successfully updated.");
+      this.bannerEditing = false;
+      this.getBanners();
+    }, error => {
+      this.alertify.error("Banner cannot be update.");
+    });
+
+  }
+
+  leaveEditBanner() {
+    this.bannerEditing = false;
   }
 
 

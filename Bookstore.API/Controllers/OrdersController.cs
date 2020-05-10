@@ -122,6 +122,17 @@ namespace Bookstore.API.Controllers
             return Ok(addresses);
         }
 
+        [HttpGet("banners")]
+        public async Task<IActionResult> GetBanners(int userId)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var banners = await _repo.GetBanners();
+
+            return Ok(banners);
+        }
+
         [HttpGet("address/{id}", Name = "GetAddress")]
         public async Task<IActionResult> GetAddress(int userId, int id)
         {
@@ -178,7 +189,25 @@ namespace Bookstore.API.Controllers
                 return NoContent();
             }
 
-            return BadRequest("Could not update income.");
+            return BadRequest("Could not update address.");
+        }
+
+        [HttpPut("banners/{id}")]
+        public async Task<IActionResult> UpdateBanner(int id, int userId, BannerForUpdateDto banner)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var bannerFromRepo = await _repo.GetBanner(id);
+            _mapper.Map(banner, bannerFromRepo);
+
+            if(await _repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            return BadRequest("Could not update banner.");
+
         }
 
         [HttpPut("{id}")]     
