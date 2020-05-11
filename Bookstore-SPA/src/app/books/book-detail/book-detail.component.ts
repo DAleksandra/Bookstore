@@ -4,6 +4,8 @@ import { BooksService } from 'src/app/_services/books.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Book } from 'src/app/_models/book';
 import { ShoppingCartService } from 'src/app/_services/shopping-cart.service';
+import { FavouritesService } from 'src/app/_services/favourites.service';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 
 @Component({
   selector: 'app-book-detail',
@@ -16,7 +18,8 @@ export class BookDetailComponent implements OnInit {
   books: Book[];
 
   constructor(private modalService: BsModalService, private booksService: BooksService, private route: ActivatedRoute,
-              private router: Router, private shoppingCartService: ShoppingCartService) { 
+              private router: Router, private shoppingCartService: ShoppingCartService, private favouritesService: FavouritesService,
+              private alertify: AlertifyService) { 
               }
 
   ngOnInit() {
@@ -52,19 +55,19 @@ export class BookDetailComponent implements OnInit {
     this.router.navigate(['shoppingcart']);
   }
 
-  addToFavourite(id: number) {
-    this.book.favourite = !this.book.favourite;
-  }
+
 
   goToDetail(id: number) {
     this.router.navigate(['/book/', id]);
     this.reloadBook(id);
+    this.loadFavourite();
   }
 
   reloadBook(id: number) {
     this.booksService.getBook(id).subscribe(x => {
       this.book = x;
       this.book.inCart = 0;
+      this.loadFavourite();
     }, error => {
       console.log(error);
     });
@@ -75,5 +78,37 @@ export class BookDetailComponent implements OnInit {
       console.log(error);
     });
   }
+
+  addToFavourite() {
+    if(this.book.favourite === false) {
+     this.favouritesService.addFavourite(this.book.id, this.book).subscribe(x => {
+       this.alertify.success("Added to favourites");
+       this.loadFavourite();
+     }, error => {
+       this.alertify.error("Cannot add to favourites");
+     });
+    }
+    else {
+      this.favouritesService.deleteFavourite(this.book.id).subscribe(x => {
+        this.alertify.error("Favourite deleted.");
+        this.loadFavourite();
+      }, error => {
+       this.alertify.error("Cannot delete favourite");
+    });
+   }
+  }
+ 
+  loadFavourite() {
+    this.favouritesService.getFavourites().subscribe(x => {
+      this.book.favourite = false;
+      this.favouritesService.favouriteBooks = x;
+      this.favouritesService.favouriteBooks.forEach(a => {
+        if(a.bookId === this.book.id) {
+          this.book.favourite = true;
+        }
+      });
+    });
+  }
+ 
 
 }

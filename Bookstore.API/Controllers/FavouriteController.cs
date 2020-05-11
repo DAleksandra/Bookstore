@@ -34,7 +34,6 @@ namespace Bookstore.API.Controllers
             var userFromRepo = await _repo.GetUser(userId);
 
             var favourite = _mapper.Map<FavouriteBook>(favouriteForCreation);
-
             userFromRepo.FavouriteBook.Add(favourite);
 
             if(await _repo.SaveAll())
@@ -51,7 +50,7 @@ namespace Bookstore.API.Controllers
             if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var favouriteFromRepo = await _repo.GetFavourite(id);
+            var favouriteFromRepo = await _repo.GetFavourite(id, userId);
 
             _repo.Delete(favouriteFromRepo);
 

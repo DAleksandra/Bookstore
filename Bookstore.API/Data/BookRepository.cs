@@ -126,7 +126,7 @@ namespace Bookstore.API.Data
 
         public async Task<User> GetUser(int userId)
         {
-            var user = await _context.Users.Include(o => o.Orders).Include(a => a.Addresses)
+            var user = await _context.Users.Include(o => o.Orders).Include(a => a.Addresses).Include(i => i.FavouriteBook)
             .FirstOrDefaultAsync(u => u.Id == userId);
 
             return user;
@@ -232,9 +232,9 @@ namespace Bookstore.API.Data
             return favourites;
         }
 
-        public async Task<FavouriteBook> GetFavourite(int favId) 
+        public async Task<FavouriteBook> GetFavourite(int favId, int userId) 
         {
-            var favourite = await _context.FavouriteBooks.Where(x => x.Id == favId).FirstOrDefaultAsync();
+            var favourite = await _context.FavouriteBooks.Where(x => x.BookId == favId && x.UserId == userId).FirstOrDefaultAsync();
 
             return favourite;
         }

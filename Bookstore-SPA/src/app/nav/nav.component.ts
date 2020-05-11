@@ -48,7 +48,14 @@ export class NavComponent implements OnInit {
   userProfile() {
     if(this.authService.loggedIn() === true)
     {
-     
+      if (localStorage.getItem('user').search('Admin') > 0) {
+        this.worker = true;
+        this.admin = true;
+      }
+      else {
+        this.worker = false;
+        this.admin = false;
+      }
     }
     else {
       this.router.navigate(['/login']);

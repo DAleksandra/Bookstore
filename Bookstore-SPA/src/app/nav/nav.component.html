@@ -40,7 +40,6 @@
         </button>
         <ul   class="dropdown-menu" *ngIf="logged()">
           <li role="menuitem"><a class="dropdown-item" *ngIf="!admin && !worker" [routerLink]="['/profile']">Profile</a></li>
-          <li role="menuitem"><a class="dropdown-item" *ngIf="worker" [routerLink]="['/worker']">Profile</a></li>
           <li role="menuitem"><a class="dropdown-item" *ngIf="admin" [routerLink]="['/admin']">Profile</a></li>
           <li role="menuitem"><a class="dropdown-item" (click)="logout()">Log out</a></li>
         </ul>

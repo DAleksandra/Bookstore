@@ -27,6 +27,7 @@ namespace Bookstore.API.Helpers
             CreateMap<BookToCreateDto, Book>();
             CreateMap<BannerForUpdateDto, Banner>();
             CreateMap<FavouriteForCreationDto, FavouriteBook>();
+            CreateMap<FavouriteBook, FavouriteForReturnDto>();
         }
     }
 }

@@ -13,6 +13,6 @@ export class Book {
     genre: string;
     language: string;
     publishingDate: Date;
-    favourite: boolean;
+    favourite: boolean = false;;
     inCart: number = 0;
 }
