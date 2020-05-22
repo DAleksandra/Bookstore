@@ -1,7 +1,7 @@
 # Bookstore
 SPA webstore.
 <hr>
-Functionalities:
+<p>Functionalities:
 <p>-full CRUD for books, orders, addresses
 <p>-creating an account and login
 <p>-admin/worker panel for store workers- allows to change orders status, banners on home page, books
@@ -11,8 +11,8 @@ Functionalities:
 <p>-adding books to favourites by user
 <p>-some functionalities available only for logged user
 <hr>
-Technologies:
--ASP.NET Core 3.0 (JWT for authorization, REST API)
--Entity Framework for ORM
--SQLite databse
--Angular 8
+<p>Technologies:
+<p>-ASP.NET Core 3.0 (JWT for authorization, REST API)
+<p>-Entity Framework for ORM
+<p>-SQLite databse
+<p>-Angular 8
